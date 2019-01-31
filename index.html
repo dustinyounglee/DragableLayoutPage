@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Grid Layout Test Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="vue-grid-layout.umd.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="base">
+            <grid-layout :layout.sync="layout" :col-num="12" :row-height="30" :is-draggable="true" :is-resizable="true"
+                :is-mirrored="false" :vertical-compact="true" :margin="[10, 10]" :use-css-transforms="false" @layout-updated="layoutUpdatedEvent">
+                <grid-item class="myth" v-for="item in layout" :x="item.x" :y="item.y" :w="item.w" :h="item.h" :i="item.i">
+                    <div v-html="item.c"></div>
+                    <div>{{item.i}}</div>
+                </grid-item>
+            </grid-layout>
+        </div>
+    </div>
+    <p onclick="Add();">Add</p>
+    <p onclick="Save();">Save</p>
+</body>
+<style>
+    .base {
+        width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .myth {
+        border-width: 1px;
+        border-color: red;
+        border-style: dashed dashed dashed dashed;
+    }
+</style>
+<script>
+    var testLayout = [
+        { "x": 0, "y": 0, "w": 12, "h": 4, "i": "0", "c": "<h1>Dragable Grid Layout For Vue</h1>" },
+        { "x": 0, "y": 4, "w": 2, "h": 4, "i": "1" },
+        { "x": 2, "y": 4, "w": 2, "h": 4, "i": "2" },
+    ];
+
+
+    function Add() {
+        testLayout.push({ "x": 4, "y": 4, "w": 2, "h": 4, "i": "3", "c": "<h2>new one add success!</h2>" })
+    }
+
+    function Save() {
+        console.log(testLayout);
+        
+    }
+
+    new Vue({
+        el: '#app',
+        data: {
+            layout: testLayout,
+        },
+        methods: {
+            layoutUpdatedEvent: function (endinfo) {
+                console.log("Updated layout: ", endinfo)
+                testLayout=endinfo
+            },
+        }
+    });
+</script>
+
+</html>
