@@ -48,7 +48,8 @@
 
 
     function Add() {
-        testLayout.push({ "x": 4, "y": 4, "w": 2, "h": 4, "i": "3", "c": "<h2>new one add success!</h2>" })
+        var endonei=Number(testLayout[testLayout.length-1].i)+1;
+        testLayout.push({ "x": 4, "y": 4, "w": 2, "h": 4, "i": endonei, "c": "<h2>new one add success!</h2>" });
     }
 
     function Save() {
